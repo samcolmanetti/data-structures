@@ -1,7 +1,9 @@
+package stack;
+
 public class Stack <E>{
     
-    private Node<E> current; 
-    private Node<E> below; 
+    private Node<E> current;
+    private Node<E> below;
     public int size; 
     
     public Stack (){
@@ -49,7 +51,7 @@ public class Stack <E>{
     }
     
     public void dumpstack (){
-        System.out.println ("Elements in Stack: "); 
+        System.out.println ("Elements in stack.Stack: ");
         Node<E> indexNode = current; 
         while (indexNode != null){
             System.out.println ("\t" + indexNode.value); 

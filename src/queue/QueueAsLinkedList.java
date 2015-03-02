@@ -1,6 +1,8 @@
+package queue;
+
 public class QueueAsLinkedList<E> implements Queue<E> {
-    private Node<E> head; 
-    private Node<E> tail; 
+    private Node<E> head;
+    private Node<E> tail;
     public int size; 
 
     public QueueAsLinkedList (){

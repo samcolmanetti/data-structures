@@ -1,18 +1,20 @@
-import java.util.*; 
+package hashtable;
 
-public class HashTableUsingArrays implements HashTable{
+import java.util.*;
+
+public class HashTableUsingArrays implements HashTable {
     private LinkedList[] table;
     private final int SIZE = 10; 
     
     public HashTableUsingArrays (){
-        table = new LinkedList[SIZE]; 
+        table = new hashtable.LinkedList[SIZE];
     }
     
     
     public void insert (int n){
         int index = this.hash(n);
         if (table[index] == null){
-            table[index] = new LinkedList<Integer>(); 
+            table[index] = new hashtable.LinkedList<Integer>();
             table[index].add(n); 
         } else {
             table[index].add(n);

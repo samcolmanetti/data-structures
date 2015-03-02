@@ -1,3 +1,5 @@
+package stack;
+
 public class StackTester {
     public static void main (String args[]){
         Stack<Integer> s = new Stack<Integer>(); 

@@ -1,3 +1,5 @@
+package hashtable;
+
 public class HashTableTester {
     public static void main (String[] args){
         HashTableUsingArrays h = new HashTableUsingArrays(); 

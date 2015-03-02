@@ -1,6 +1,8 @@
+package queue;
+
 public class Node<E> {
     public E value; 
-    public Node<E> prev; 
+    public Node<E> prev;
     public Node<E> next;
     
     public Node (){
