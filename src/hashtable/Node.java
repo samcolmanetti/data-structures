@@ -1,9 +1,5 @@
 package hashtable;
 
-/**
- * Created by Samuel on 3/1/2015.
- */
-
 public class Node<E>{
     public Node<E> next;
     public E value;

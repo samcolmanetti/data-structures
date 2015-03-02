@@ -5,6 +5,6 @@ package hashtable;
  */
 public interface List<E> {
     public void addToFront(E node);
-    public boolean remove (E node);
+    public void remove (E node);
     public void dumpList ();
 }

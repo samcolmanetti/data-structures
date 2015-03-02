@@ -36,13 +36,9 @@ public class HashTableUsingArrays implements HashTable {
     
     public void dumphash (){
         System.out.println ("Dump hash: "); 
-        for (int i = 0; i < table.length; i++) {
-            if (table[i] != null) {
-                ListIterator iterator = table[i].listIterator(0);
-                while (iterator.hasNext())
-                    System.out.println("\t" + iterator.next());
-            }
-        }
+        for (int i = 0; i < table.length; i++)
+            if (table[i] != null)
+                table[i].dumpList();
         
     }
     public int hash (int n){

@@ -11,17 +11,35 @@ public class LinkedList<E> implements List<E>{
     public LinkedList () {
         current = null;
         next = null;
+        size = 0;
     }
 
     public void addToFront(E node) {
-
+        if (size == 0){
+            this.current = new Node(node);
+        } else {
+            this.next = this.current;
+            this.current = new Node (node);
+            current.next = this.next;
+        }
     }
 
-    public boolean remove(E node) {
-        return false;
+    public void remove(E node) {
+        Node curr = this.current;
+
+        while (curr != null){
+            if (curr.value.equals(node)){
+
+            }
+            curr = curr.next;
+        }
     }
 
     public void dumpList() {
-
+        Node curr = this.current;
+        while (curr != null){
+            System.out.println (curr.value.toString());
+            curr = curr.next;
+        }
     }
 }
