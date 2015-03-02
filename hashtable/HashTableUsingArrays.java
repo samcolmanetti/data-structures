@@ -21,20 +21,25 @@ public class HashTableUsingArrays implements HashTable{
     
     public void delete (int n){
         int tbIndex = this.hash(n);
-        int elementIndex = table[tbIndex].indexOf (n); 
-        
-        if (elementIndex != -1)
-            table[tbIndex].remove (elementIndex); 
-        else 
-            System.out.println ("Element not in list."); 
+        if (table[tbIndex] != null) {
+            int elementIndex = table[tbIndex].indexOf(n);
+
+            if (elementIndex != -1)
+                table[tbIndex].remove(elementIndex);
+            else
+                System.out.println("Element not in list.");
+        } else
+            System.out.println("Element not in list.");
     }
     
     public void dumphash (){
         System.out.println ("Dump hash: "); 
-        for (int i = 0; i < table.length; i++){
-            ListIterator iterator = table[i].listIterator(0);
-            while (iterator.hasNext())
-                System.out.println ("\t" + iterator.next()); 
+        for (int i = 0; i < table.length; i++) {
+            if (table[i] != null) {
+                ListIterator iterator = table[i].listIterator(0);
+                while (iterator.hasNext())
+                    System.out.println("\t" + iterator.next());
+            }
         }
         
     }
