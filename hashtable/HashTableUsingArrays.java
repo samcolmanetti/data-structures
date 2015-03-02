@@ -32,7 +32,7 @@ public class HashTableUsingArrays implements HashTable{
     public void dumphash (){
         System.out.println ("Dump hash: "); 
         for (int i = 0; i < table.length; i++){
-            ListInterator iterator = table[i].listIterator(0); 
+            ListIterator iterator = table[i].listIterator(0);
             while (iterator.hasNext())
                 System.out.println ("\t" + iterator.next()); 
         }
