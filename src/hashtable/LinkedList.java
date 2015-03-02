@@ -17,7 +17,11 @@ public class LinkedList<E> implements List<E>{
     public void addToFront(E node) {
         if (size == 0){
             this.current = new Node(node);
-        } else {
+            this.current.next = null;
+            this.next = this.current;
+        } else if (size == 1){
+            
+        }else {
             this.next = this.current;
             this.current = new Node (node);
             current.next = this.next;
