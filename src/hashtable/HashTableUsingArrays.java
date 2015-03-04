@@ -10,12 +10,10 @@ public class HashTableUsingArrays implements HashTable {
 
     public void insert (int n){
         int index = this.hash(n);
-        if (table[index] == null){
+        if (table[index] == null)
             table[index] = new LinkedList<Integer>();
-            table[index].addToFront(n);
-        } else {
-            table[index].addToFront(n);
-        }
+
+        table[index].addToFront(n);
     }
     
     public void delete (int n){
