@@ -13,13 +13,16 @@ public class LinkedList<E> implements List<E>{
         Node<E> temp = new Node<E> (node);
         temp.next = this.head;
         this.head = temp;
+        size++;
     }
 
     public void remove(E node) {
         Node curr = this.head;
         if (curr != null)
-            if(curr.value.equals (node))
+            if(curr.value.equals (node)) {
                 this.head = null;
+                size--;
+            }
             else {
                 while (curr.next != null) {
                     if (curr.next.value.equals(node)) {
