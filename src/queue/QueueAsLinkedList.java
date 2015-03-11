@@ -52,4 +52,7 @@ public class QueueAsLinkedList<E> implements Queue<E> {
             current = current.next; 
         }
     }
+    public boolean hasNext (){
+        return (size > 0);
+    }
 }
