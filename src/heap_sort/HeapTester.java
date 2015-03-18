@@ -1,11 +1,8 @@
 package heap_sort;
 
-/**
- * Created by samso_000 on 3/16/2015.
- */
 public class HeapTester {
     public static void main (String arguments[]){
-        HeapSort h = new HeapSort();
+        HeapSort h = new HeapSort(9);
         h.add(10);
         h.add (2);
         h.add (8);

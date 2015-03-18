@@ -1,13 +1,13 @@
 package heap_sort;
 
-/**
- * Created by samso_000 on 3/16/2015.
- */
 public class HeapSort {
     private HeapTree tree;
 
     public HeapSort (){
         tree = new HeapTree();
+    }
+    public HeapSort (int numberOfEntries){
+        tree = new HeapTree(numberOfEntries);
     }
 
     public void add (int value){
@@ -22,8 +22,12 @@ public class HeapSort {
         return temp;
     }
     public void printSorted (){
-        System.out.println ("Sorted list: ");
+       System.out.println ("Sorted list: ");
         while (tree.hasNext())
             System.out.println (tree.extract_max());
+
+
     }
+
+
 }

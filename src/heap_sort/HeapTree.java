@@ -3,41 +3,60 @@ package heap_sort;
 
 public class HeapTree implements Heap{
     private int[] heap;
+    private int MAX_SIZE;
     public int size;
 
     public HeapTree (){
-        heap = new int[2];
+        MAX_SIZE = 10;
+        heap = new int[MAX_SIZE];
+        size = 0;
+    }
+    public HeapTree (int numberOfEntries){
+        MAX_SIZE = numberOfEntries + 1; // heap[0] is not being used
+        heap = new int[MAX_SIZE];
         size = 0;
     }
 
     public void insert(int v) {
         size++;
-        if (heap.length > size)    doubleSize();
         heap[size] = v;
-        insert (size, parentOf(size));
+        if (size > 1)
+            insert (size, parentOf(size));
     }
 
     private void insert (int curr, int parent){
-        if (heap[curr] > heap[parent]){
+
+        if ((curr != -1 && parent != -1 )&& heap[curr] > heap[parent]){
             swap (curr, parent);
-            insert (parent, parentOf(parent));
+            if (parent > 1)
+                insert (parent, parentOf(parent));
         }
     }
 
     public int extract_max() {
-        int temp = heap[1];
-        heap[1] = heap[size];
-        extract_max(1);
-        size--;
-        return temp;
+        if (size > 0) {
+            int temp = heap[1];
+            heap[1] = heap[size];
+            heap[size] = 0;
+            size--;
+            extract_max(1);
+            return temp;
+        } else {
+            System.out.println ("Extracting when empty");
+            return -1;
+        }
     }
     private void extract_max (int curr){
         if (heap[rightOf(curr)] > heap[leftOf(curr)]){
-            if (heap[curr] < heap[rightOf(curr)])
-                swap (curr, rightOf(curr));
-        } else {
-            if (heap[curr] < heap[leftOf(curr)])
-                swap (curr, leftOf(curr));
+            if (heap[curr] < heap[rightOf(curr)]) {
+                swap(curr, rightOf(curr));
+                extract_max(rightOf(curr));
+            }
+        } else if (heap[leftOf(curr)] > heap[rightOf(curr)]) {
+            if (heap[curr] < heap[leftOf(curr)]) {
+                swap(curr, leftOf(curr));
+                extract_max(leftOf(curr));
+            }
         }
 
     }
@@ -52,32 +71,16 @@ public class HeapTree implements Heap{
         return size > 0;
     }
 
-    private void doubleSize (){
-        int[] temp = new int[2 * heap.length];
-
-        for (int i = 0; i < heap.length; i++)
-            temp[i] = heap[i];
-
-        heap = temp;
-    }
-    private int parentOf (int index){
-        if (index == 1) return 0;
-        else return parentOf (index, 1);
-
-    }
-    private int parentOf (int index, int prev){
-        if (leftOf(prev) == index)
-            return prev;
-        else if (rightOf(prev) == index)
-            return prev;
+    private int parentOf (int index) {
+        if (index == 1)
+            return -1;
+        else if (index % 2 == 0)
+            return index/2;
         else {
-            if (heap[prev] < heap[index])
-                return 0;
-            else{
-                 return max (parentOf(index, leftOf(prev)), parentOf(index, rightOf(prev)));
-            }
+            return (index - 1)/ 2;
         }
     }
+
     private int max (int v1, int v2){
         if (v1 > v2)
             return v1;
@@ -85,10 +88,16 @@ public class HeapTree implements Heap{
             return v2;
     }
     private int leftOf (int index){
-        return 2 * index;
+        if (2 * index <= size )
+            return 2 * index;
+        else
+            return 0;
     }
     private int rightOf (int index){
-        return 2 * index + 1;
+        if (2 * index + 1 <= size )
+            return 2 * index + 1;
+        else
+            return 0;
     }
     private void swap (int i1, int i2){
         int temp = heap[i1];
