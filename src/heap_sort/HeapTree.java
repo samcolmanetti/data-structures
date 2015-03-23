@@ -63,8 +63,34 @@ public class HeapTree implements Heap{
 
     public void dumpheap() {
         System.out.println ("Dump heap");
-        for (int i = 1; i <= size; i++)
-            System.out.println (heap[i]);
+        int maxLevels = maxLevel();
+        int tabs = (int)(Math.pow(2, maxLevels - 1)) - 1;
+        if (heap[1] > 0){
+            printTabs (tabs);
+            System.out.println (heap[1]);
+        }
+        int innerTabs = tabs;
+        int outerTabs = (tabs-1)/2;
+
+        for (int level = 2; level < size; level*=2){
+
+            for (int i = level; i < level*2; i++){
+                printTabs(innerTabs);
+                System.out.print (heap[i]);
+            }
+        }
+
+    }
+    private int maxLevel () {
+        int max = 0;
+        for (int i = 1; i<size; i = i* 2)
+            max++;
+        return max;
+    }
+
+    private void printTabs (int num){
+        for (int i = 0; i < num; i++)
+            System.out.print ("\t");
     }
 
     public boolean hasNext (){

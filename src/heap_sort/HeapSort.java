@@ -1,30 +1,30 @@
 package heap_sort;
 
-public class HeapSort {
-    private HeapTree tree;
+public class HeapSort extends HeapTree{
 
     public HeapSort (){
-        tree = new HeapTree();
+        super();
     }
     public HeapSort (int numberOfEntries){
-        tree = new HeapTree(numberOfEntries);
+        super (numberOfEntries);
     }
 
     public void add (int value){
-        tree.insert(value);
+        super.insert(value);
     }
 
     public int[] getSortedList (){
-        int temp[] = new int[tree.size];
+        int temp[] = new int[super.size];
         for (int i = 0; i < temp.length; i++){
-            temp[i] = tree.extract_max();
+            temp[i] = super.extract_max();
         }
         return temp;
     }
     public void printSorted (){
+        super.dumpheap();
        System.out.println ("Sorted list: ");
-        while (tree.hasNext())
-            System.out.println (tree.extract_max());
+        while (super.hasNext())
+            System.out.println (super.extract_max());
 
 
     }
