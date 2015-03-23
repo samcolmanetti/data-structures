@@ -1,6 +1,5 @@
 package heap_sort;
 
-
 public class HeapTree implements Heap{
     private int[] heap;
     private int MAX_SIZE;
@@ -62,9 +61,42 @@ public class HeapTree implements Heap{
     }
 
     public void dumpheap() {
-        System.out.println ("Dump heap");
-        for (int i = 1; i <= size; i++)
-            System.out.println (heap[i]);
+        System.out.println ("Dump heap:");
+
+        if (heap[1] > 0){
+            int tabs = (int)(Math.pow(2, maxLevel() - 1)) - 1;
+            printTabs (tabs);
+            System.out.println (heap[1]);
+
+            int innerTabs = tabs;
+            int outerTabs = (tabs-1)/2;
+
+            for (int level = 2; level <= size; level*=2){
+                printTabs(outerTabs);
+                for (int i = level; i<2*level && i<=size; i++){
+                    System.out.printf ("%5d",heap[i]);
+                    printTabs(innerTabs);
+                }
+                System.out.println();
+                innerTabs = outerTabs;
+                outerTabs = (outerTabs-1)/2;
+            }
+        } else {
+            System.out.println ("Heap is empty");
+        }
+
+
+    }
+    private int maxLevel () {
+        int max = 0;
+        for (int i = 1; i<size; i = i*2)
+            max++;
+        return max;
+    }
+
+    private void printTabs (int num){
+        for (int i = 0; i < num; i++)
+            System.out.print ("\t");
     }
 
     public boolean hasNext (){
@@ -81,12 +113,6 @@ public class HeapTree implements Heap{
         }
     }
 
-    private int max (int v1, int v2){
-        if (v1 > v2)
-            return v1;
-        else
-            return v2;
-    }
     private int leftOf (int index){
         if (2 * index <= size )
             return 2 * index;
