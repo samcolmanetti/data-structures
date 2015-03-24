@@ -74,7 +74,7 @@ public class HeapTree implements Heap{
             for (int level = 2; level <= size; level*=2){
                 printTabs(outerTabs);
                 for (int i = level; i<2*level && i<=size; i++){
-                    System.out.printf ("%5d",heap[i]);
+                    System.out.printf ("%-5d",heap[i]);
                     printTabs(innerTabs);
                 }
                 System.out.println();
