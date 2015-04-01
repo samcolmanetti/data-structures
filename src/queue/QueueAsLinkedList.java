@@ -43,6 +43,9 @@ public class QueueAsLinkedList<E> implements Queue<E> {
             return temp.value; 
         }
     }
+    public boolean empty (){
+        return (size <= 0);
+    }
     
     public void dumpqueue (){
         System.out.println ("Dump queue:");
