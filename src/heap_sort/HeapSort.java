@@ -26,9 +26,5 @@ public class HeapSort extends HeapTree{
         if (!super.hasNext())   System.out.println ("List is empty.");
         while (super.hasNext())
             System.out.println (super.extract_max());
-
-
     }
-
-
 }
