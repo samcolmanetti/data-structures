@@ -26,5 +26,6 @@ public class Node {
 
     public void addNeighbor (Node name, int weight){
         neighbors.add(new Neighbor(name, weight));
+
     }
 }
