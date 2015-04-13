@@ -7,6 +7,9 @@ public class GameOfLife {
     public GameOfLife (){
         this.board = new boolean[SIZE][SIZE];
     }
+    public GameOfLife (boolean[][] b){
+        this.board = b;
+    }
 
     public void placeGlider (int x, int y){
         if (x > 0 && x+2 < SIZE-1 && y+2 < SIZE-1 && y > 0) {
