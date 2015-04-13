@@ -1,8 +1,5 @@
 package gameoflife;
 
-/**
- * Created by Samuel on 4/7/2015.
- */
 public class GameOfLife {
     private boolean board[][];
     private final int SIZE = 20;
@@ -61,19 +58,12 @@ public class GameOfLife {
 
     private boolean continueLiving (int x, int y){
         int count = countLiveNeighbors(x,y);
-        if (count == 2 || count == 3)
-            return true;
-        else
-            return false;
+        return (count == 2 || count == 3);
     }
     private boolean comeBack (int x, int y){
 
-        if (countLiveNeighbors(x,y) == 3)
-            return true;
-        else
-            return false;
+        return (countLiveNeighbors(x,y) == 3);
     }
-
     private int countLiveNeighbors (int x, int y){
         int count = 0;
         if (board[x+1][y])
@@ -106,6 +96,16 @@ public class GameOfLife {
             }
         }
         return result;
+    }
+    protected int fitness (int max){
+        for (int i = 0; i < max; i++)
+            this.nextStep();
+        int count = 0;
+        for (int row = 1; row < SIZE-1; row++)
+            for (int col = 1; col < SIZE - 1; col++)
+                if (board[row][col])
+                    count++;
+        return count;
     }
 
     public String toString (){
