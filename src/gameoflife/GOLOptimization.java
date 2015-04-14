@@ -1,5 +1,7 @@
 package gameoflife;
 
+import queue.QueueAsLinkedList;
+
 import java.util.Random;
 
 public class GOLOptimization{
@@ -26,18 +28,22 @@ public class GOLOptimization{
         }
         return temp;
     }
-
     public void evalTrials (){
         int maxFitness = 0;
-        GameOfLife maxGame = gol[0];
+        QueueAsLinkedList<GameOfLife> maxGames = new QueueAsLinkedList<GameOfLife>();   // queue from a previous assignment
+        int count = 0;
         for (int i = 0; i < gol.length; i++){
             int currentFitness = gol[i].fitness(fitnessIterations);
             if (currentFitness > maxFitness) {
+                maxGames.enqueue(gol[i]);
                 maxFitness = currentFitness;
-                maxGame = gol[i];
+                if (maxGames.size > 10)
+                    maxGames.dequeue();
             }
         }
-
-        System.out.println ("Fitness: " + maxFitness + "\n" + maxGame.toString());
+        while (!maxGames.empty()) {
+            GameOfLife temp = maxGames.dequeue();
+            System.out.println("Fitness: " + temp.fitness +"\n" + temp.getInitBoardAsString());
+        }
     }
 }

@@ -4,6 +4,7 @@ public class GameOfLife {
     private boolean board[][];
     private boolean initBoard[][];
     private int SIZE = 20;
+    public int fitness;
 
     public GameOfLife (){
         this.board = new boolean[SIZE][SIZE];
@@ -12,6 +13,7 @@ public class GameOfLife {
         SIZE = b.length;
         this.board = b;
         this.initBoard = clone(b);
+        this.fitness = 0;
     }
 
     public void placeGlider (int x, int y){
@@ -63,7 +65,7 @@ public class GameOfLife {
     }
 
     private boolean continueLiving (int x, int y){
-        int count = countLiveNeighbors(x,y);
+        int count = countLiveNeighbors(x, y);
         return (count == 2 || count == 3);
     }
     private boolean comeBack (int x, int y){
@@ -106,17 +108,30 @@ public class GameOfLife {
     public int fitness (int max){
         for (int i = 0; i < max; i++)
             this.nextStep();
-        int count = 0;
+        fitness = 0;
         for (int row = 1; row < SIZE-1; row++)
             for (int col = 1; col < SIZE - 1; col++)
                 if (board[row][col])
-                    count++;
-        return count;
+                    fitness++;
+        return fitness;
     }
     public boolean[][] getInitBoard (){
         return initBoard;
     }
+    public String getInitBoardAsString (){
+        String result = "";
+        for (int i = 0; i < SIZE; i++){
+            for (int j = 0; j < SIZE; j++){
+                if (initBoard[i][j])
+                    result += "X";
+                else
+                    result += "-";
+            }
+            result += "\n";
+        }
 
+        return result;
+    }
     public String toString (){
         String result = "";
         for (int i = 0; i < SIZE; i++){
