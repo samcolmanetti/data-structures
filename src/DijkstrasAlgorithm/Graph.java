@@ -17,9 +17,8 @@ public class Graph extends GraphHelper{
         if (nodes.size() > 0) {
             nodes.get(0).setValue(0);
             QueueAsLinkedList<Node> q = new QueueAsLinkedList<Node>();
-            for (int i = 0; i < nodes.size(); i++)
+            for (int i = 0; i < nodes.size(); i++)  // starting point is first element
                 q.enqueue(nodes.get(i));
-            // starting point is first element
             while (!q.empty()) {
                 Node current = q.dequeue();
                 ArrayList<Neighbor> cNeighbors = current.getNeighbors();
