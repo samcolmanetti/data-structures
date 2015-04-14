@@ -5,14 +5,7 @@ package gameoflife;
  */
 public class GameMain {
     public static void main (String args[]){
-        GameOfLife g = new GameOfLife();
-        //g.placeBlock(10,10);
-        //g.placeVerticalBlinker(5,5);
-        g.placeGlider(12,12);
-
-        for (int i = 0; i < 3; i++){
-            System.out.println (g + "\n");
-            g.nextStep();
-        }
+        GOLOptimization op = new GOLOptimization(100000,20,1000);
+        op.evalTrials();
     }
 }

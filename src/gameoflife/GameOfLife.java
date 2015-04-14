@@ -2,13 +2,16 @@ package gameoflife;
 
 public class GameOfLife {
     private boolean board[][];
-    private final int SIZE = 20;
+    private boolean initBoard[][];
+    private int SIZE = 20;
 
     public GameOfLife (){
         this.board = new boolean[SIZE][SIZE];
     }
     public GameOfLife (boolean[][] b){
+        SIZE = b.length;
         this.board = b;
+        this.initBoard = clone(b);
     }
 
     public void placeGlider (int x, int y){
@@ -100,7 +103,7 @@ public class GameOfLife {
         }
         return result;
     }
-    protected int fitness (int max){
+    public int fitness (int max){
         for (int i = 0; i < max; i++)
             this.nextStep();
         int count = 0;
@@ -109,6 +112,9 @@ public class GameOfLife {
                 if (board[row][col])
                     count++;
         return count;
+    }
+    public boolean[][] getInitBoard (){
+        return initBoard;
     }
 
     public String toString (){
