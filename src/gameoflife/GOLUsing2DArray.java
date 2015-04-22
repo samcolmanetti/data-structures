@@ -69,7 +69,6 @@ public class GOLUsing2DArray {
         return (count == 2 || count == 3);
     }
     private boolean comeBack (int x, int y){
-
         return (countLiveNeighbors(x,y) == 3);
     }
     private int countLiveNeighbors (int x, int y){

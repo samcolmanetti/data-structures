@@ -1,8 +1,5 @@
 package gameoflife;
 
-/**
- * Created by Samuel on 4/22/2015.
- */
 public class GOLObject {
     public int x1;
     public int y1;
