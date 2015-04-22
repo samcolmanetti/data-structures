@@ -4,17 +4,17 @@ import queue.QueueAsLinkedList;
 
 import java.util.Random;
 
-public class GOLOptimization{
+public class BruteForceOptimization {
 
-    private GameOfLife[] gol;
+    private GOLUsing2DArray[] gol;
     private int fitnessIterations;
     private Random rand = new Random();
 
-    public GOLOptimization (int trials, int size, int fitnessIterations) {
+    public BruteForceOptimization(int trials, int size, int fitnessIterations) {
         this.fitnessIterations = fitnessIterations;
-        gol = new GameOfLife[trials];
+        gol = new GOLUsing2DArray[trials];
         for (int i = 0; i < trials; i++){
-            gol[i] = new GameOfLife(getRandomBoard(size));
+            gol[i] = new GOLUsing2DArray(getRandomBoard(size));
         }
     }
 
@@ -30,7 +30,7 @@ public class GOLOptimization{
     }
     public void evalTrials (){
         int maxFitness = 0;
-        QueueAsLinkedList<GameOfLife> maxGames = new QueueAsLinkedList<GameOfLife>();   // queue from a previous assignment
+        QueueAsLinkedList<GOLUsing2DArray> maxGames = new QueueAsLinkedList<GOLUsing2DArray>();   // queue from a previous assignment
         int count = 0;
         for (int i = 0; i < gol.length; i++){
             int currentFitness = gol[i].fitness(fitnessIterations);
@@ -42,7 +42,7 @@ public class GOLOptimization{
             }
         }
         while (!maxGames.empty()) {
-            GameOfLife temp = maxGames.dequeue();
+            GOLUsing2DArray temp = maxGames.dequeue();
             System.out.println("Fitness: " + temp.fitness +"\n" + temp.getInitBoardAsString());
         }
     }

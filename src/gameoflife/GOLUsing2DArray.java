@@ -1,15 +1,15 @@
 package gameoflife;
 
-public class GameOfLife {
+public class GOLUsing2DArray {
     private boolean board[][];
     private boolean initBoard[][];
     private int SIZE = 20;
     public int fitness;
 
-    public GameOfLife (){
+    public GOLUsing2DArray(){
         this.board = new boolean[SIZE][SIZE];
     }
-    public GameOfLife (boolean[][] b){
+    public GOLUsing2DArray(boolean[][] b){
         SIZE = b.length;
         this.board = b;
         this.initBoard = clone(b);
