@@ -3,21 +3,78 @@ package gameoflife;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class GOLBoard {
-    private ArrayList<GOLObject> objs;
+public class GOLBoard implements Comparable{
+    public ArrayList<GOLObject> objs;
     private boolean[][] board;
+    private boolean[][] initBoard;
     public int fitness;
     public int diversity;
     private int SIZE = 20;
 
 
     public GOLBoard (){
-        board = new boolean[20][20];
+        board = new boolean[SIZE][SIZE];
+        initBoard = new boolean[SIZE][SIZE];
+        objs = new ArrayList<GOLObject>();
         fitness = 0;
-        generateRandomObjects();
+        this.insertRandomObjects();
         fitness();
     }
+    public GOLBoard (ArrayList<GOLObject> objects){
+        board = new boolean[SIZE][SIZE];
+        initBoard = new boolean[SIZE][SIZE];
+        insertObjects(objects);
+        fitness = 0;
+        calcDiversity();
+        fitness();
+    }
+    public void setToCrossBetween (GOLBoard b1, GOLBoard b2 ){
+        GOLBoard temp = new GOLBoard(b1.objs);
+        for (int i = 0; i < b2.objs.size(); i++){
+            if (b1.diversity - b2.diversity > 10)
+                b1.objs.add(b2.objs.get(i));
+        }
+        board = new boolean[SIZE][SIZE];
+        fitness = 0;
+        insertObjects(temp.objs);
+        calcDiversity();
+        fitness();
+    }
+    private GOLBoard cloneBoard (GOLBoard ob){
+        GOLBoard temp = new GOLBoard(ob.objs);
+        return temp;
+    }
+    private ArrayList<GOLObject> clone (ArrayList<GOLObject> ob){
+        ArrayList<GOLObject> temp = new ArrayList<GOLObject>();
+        for (int i = 0; i < ob.size(); i++)
+            temp.add(ob.get(i));
+        return temp;
+    }
+    public void mutationOf (GOLBoard ob){
+        Random rand = new Random();
+        ArrayList<GOLObject> temp = clone (ob.objs);
+        int index = rand.nextInt(10);
+        int dx, dy;
+        do {
+            dx = -2 + rand.nextInt(10);
+            temp.get(index).x1 += dx;
+            temp.get(index).x2 += dx;
+        } while (temp.get(index).x1 > 0 && temp.get(index).x1 < SIZE && temp.get(index).x2 > 0 && temp.get(index).x2 < SIZE);
+        do {
+            dy = -2 + rand.nextInt(10);
+            temp.get(index).y1 += dy;
+            temp.get(index).y2 += dy;
+        } while (temp.get(index).y1 > 0 && temp.get(index).y1 < SIZE && temp.get(index).y2 > 0 && temp.get(index).y2 < SIZE);
+
+        board = new boolean[SIZE][SIZE];
+        fitness = 0;
+        insertObjects(temp);
+        calcDiversity();
+        fitness();
+    }
+
     public int fitness (){
+        initBoard = board.clone();
         for (int i = 0; i < 1000; i++)
             nextStep();
         this.fitness = 0;
@@ -27,7 +84,7 @@ public class GOLBoard {
                     fitness++;
         return fitness;
     }
-    private void generateRandomObjects (){
+    private void insertRandomObjects (){
         Random rand = new Random();
         for (int i = 0; i < objs.size(); i++){
             int x1 = 1 + rand.nextInt(15);
@@ -95,6 +152,16 @@ public class GOLBoard {
             }
         }
     }
+    private void insertObjects (ArrayList<GOLObject> ob){
+        this.objs = ob;
+        for (int i = 0; i < ob.size(); i++) {
+            for (int x = ob.get(i).x1; x < ob.get(i).x2; x++) {
+                for (int y = ob.get(i).y1; y < ob.get(i).y2; y++) {
+                    board[y][x] = true;
+                }
+            }
+        }
+    }
     public int calcDiversity () {
         diversity = 0;
         for (int i = 0; i < SIZE - 1; i++){
@@ -107,5 +174,24 @@ public class GOLBoard {
     }
     public boolean pointAt (int x, int y){
         return board[y][x];
+    }
+    public String getInitBoard (){
+        String result = "";
+        for (int i = 0; i < SIZE; i++){
+            for (int j = 0; j < SIZE; j++){
+                if (initBoard[i][j])
+                    result += "X";
+                else
+                    result += "-";
+            }
+            result += "\n";
+        }
+
+        return result;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        return this.fitness - ((GOLBoard)o).fitness;
     }
 }
