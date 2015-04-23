@@ -28,14 +28,14 @@ public class GAOptimization {
     }
     public void nextGeneration (){
         sort();
-        for (int i = boards.size()/ 2; i <= boards.size(); i++){
-            if (i < boards.size() - boards.size()/4){ // second worse fitness
-                boards.get(i).mutationOf(boards.get(rand.nextInt(boards.size()/10)));
+        for (int i = boards.size()/ 2; i < boards.size(); i++){
+            if (i < boards.size() - boards.size()/4){ // second worst fitness
+                boards.get(i).mutationOf(boards.get( rand.nextInt(boards.size()/4)));
             } else { // worst fitness
                 int i1, i2;
                 do {
-                    i1 = rand.nextInt(boards.size()/10);
-                    i2 = rand.nextInt(boards.size()/10);
+                    i1 = rand.nextInt(boards.size()/2);
+                    i2 = rand.nextInt(boards.size()/2);
                 } while (i1 == i2);
                 boards.get(i).setToCrossBetween(boards.get(i1), boards.get(i2));
             }
@@ -47,10 +47,12 @@ public class GAOptimization {
     }
     public void eval (int numOfIterations){
         for (int i = 0; i < numOfIterations; i++){
+            System.out.println ("Generation #: " + i);
             nextGeneration();
         }
     }
     public void printTop (){
+        sort();
         for (int i = 0; i < 10; i++){
             System.out.println ("Fitness: "+ boards.get(i).fitness);
             System.out.println (boards.get(i).getInitBoard());

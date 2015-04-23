@@ -9,6 +9,6 @@ public class GOLComparator implements Comparator<GOLBoard> {
 
     @Override
     public int compare(GOLBoard left, GOLBoard right) {
-        return left.compareTo(right);
+        return right.compareTo(left);
     }
 }
