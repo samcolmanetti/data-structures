@@ -4,15 +4,16 @@ package HuffmanCode;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
-import scranton.tree.BinarySearchTree;
+import java.util.StringTokenizer;
 
-public class HuffmanGenerator {
 
-    private String text;
+public class HuffmanCode {
+
+    public String text;
     private Hashtable<String,Integer> table;
     private HuffmanTree tree;
 
-    public HuffmanGenerator (String text){
+    public HuffmanCode(String text){
         this.text = text.toLowerCase();
         table = new Hashtable<String, Integer>();
         genFreq ();
@@ -40,37 +41,55 @@ public class HuffmanGenerator {
             Node n2 = nodes.get(1).getRoot();
 
             nodes.add(new HuffmanTree (new Node(n1.letters + n2.letters, n1.value + n2.value)));
-            nodes.get(nodes.size()-1).insertLeft(n1);
-            nodes.get(nodes.size()-1).insertRight(n2);
+            nodes.get(nodes.size()-1).insertLeft(nodes.get(0));
+            nodes.get(nodes.size()-1).insertRight(nodes.get(1));
             nodes.remove(0);
             nodes.remove(0);
         }
         tree = nodes.get(0);
-
     }
     public String encode (){
-        HuffmanTree temp = tree;
+        String result = "";
         for (int i = 0; i < text.length(); i++){
-
+            result += toBinary(text.charAt(i)) + " ";
         }
-        return "";
+        return result;
     }
 
-    public String decode (){
-        return "";
+    public String decode (String encoding){
+        String result = "";
+        StringTokenizer tokenizer = new StringTokenizer (encoding, " ");
+        while (tokenizer.hasMoreTokens()){
+            result += toLetter(tokenizer.nextToken());
+        }
+        return result;
     }
-    private String getSymbol (char c){
-        String results = "";
+    private String toBinary (char c){
+        String result = "";
         HuffmanTree temp = tree;
         while (temp != null){
-            if (temp.left().equals(Character.toString(c)))
-                temp = temp ;//temp.left();
-            else if (temp.right().letters.equals(Character.toString(c)))
-                results += "1";
-            else if (temp.left().letters.contains(Character.toString(c)){
-
+            if (temp.right() != null && temp.right().getRoot().letters.contains(Character.toString(c))) {
+                result += "1";
+                temp = temp.right();
+            }
+            else if (temp.left() != null && temp.left().getRoot().letters.contains(Character.toString(c))){
+                result += 0;
+                temp = temp.left();
+            } else {
+                temp = null;
             }
         }
-        return "";
+        return result;
+    }
+    private String toLetter (String bin){
+        String result = "";
+        HuffmanTree temp = tree;
+        for (int i = 0; i < bin.length(); i++){
+            if (bin.charAt(i) == '0')
+                temp = temp.left();
+            else if (bin.charAt(i) == '1')
+                temp = temp.right();
+        }
+        return temp.getRoot().letters;
     }
 }
